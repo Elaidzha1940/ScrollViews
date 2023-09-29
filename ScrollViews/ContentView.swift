@@ -10,24 +10,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     var body: some View {
         
         ScrollView(.horizontal) {
             HStack {
                 ForEach(MockData.items) { item in
                     Rectangle()
-                        .frame(width: 90, height: 90)
+                        .containerRelativeFrame(.horizontal,
+                                                count: verticalSizeClass == .regular ? 3 : 4,
+                                                .spacing 15
+                        )
+                        //.frame(width: 90, height: 90)
                         .cornerRadius(20)
                         .foregroundStyle(item.color.gradient)
+                        .scrollTransition { content, phase in
+                            content
+                                .opacity(phase.isIdentity ? 1.0 : 0.0)
+                                .scaleEffect(x: phase.isIdentity ? 1.0 : 0.3, 
+                                             y: phase.isIdentity ? 1.0 : 0.3)
+                                .offset(y: phase.isIdentity)
+                            
+                        }
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
     ContentView()
-        .preferredColorScheme(.dark)
 }
 
 struct Item: Identifiable {
