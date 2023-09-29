@@ -21,14 +21,14 @@ struct ContentView: View {
                         .containerRelativeFrame(.horizontal,
                                                 count: verticalSizeClass == .regular ? 1 : 4,
                                                 spacing: 15)
-                    .frame(width: 90, height: 90)
-                        .cornerRadius(20)
+                        .frame(width: 120, height: 120)
+                        .cornerRadius(30)
                         .foregroundStyle(item.color.gradient)
                         .scrollTransition { content, phase in
                             content
                                 .opacity(phase.isIdentity ? 1.0 : 0.0)
                                 .scaleEffect(x: phase.isIdentity ? 1.0 : 0.3,
-                                             y: phase.isIdentity ? 1.0 : 0.3)
+                                             y: phase.isIdentity ? 1.0 : 0.5)
                                 .offset(y: phase.isIdentity ? 0 : 50)
                         }
                 }
@@ -36,7 +36,7 @@ struct ContentView: View {
             .scrollTargetLayout()
         }
         .contentMargins(15, for: .scrollContent)
-        //.scrollTargetBehavior(.viewAligned)
+        .scrollTargetBehavior(.viewAligned)
         .preferredColorScheme(.dark)
     }
 }
@@ -50,7 +50,10 @@ struct Item: Identifiable {
     let color: Color
 }
 struct MockData {
-    static var items = [Item(color: .white),
+    static var items = [Item(color: .black),
+                        Item(color: .white),
+                        Item(color: .black),
+                        Item(color: .white),
                         Item(color: .black),
                         Item(color: .white),
                         Item(color: .black),
