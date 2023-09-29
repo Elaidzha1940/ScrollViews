@@ -19,9 +19,9 @@ struct ContentView: View {
                 ForEach(MockData.items) { item in
                     Rectangle()
                         .containerRelativeFrame(.horizontal,
-                                                count: verticalSizeClass == .regular ? 3 : 4,
-                                                .spacing: 15)
-                    //.frame(width: 90, height: 90)
+                                                count: verticalSizeClass == .regular ? 1 : 4,
+                                                spacing: 15)
+                    .frame(width: 90, height: 90)
                         .cornerRadius(20)
                         .foregroundStyle(item.color.gradient)
                         .scrollTransition { content, phase in
@@ -29,14 +29,14 @@ struct ContentView: View {
                                 .opacity(phase.isIdentity ? 1.0 : 0.0)
                                 .scaleEffect(x: phase.isIdentity ? 1.0 : 0.3,
                                              y: phase.isIdentity ? 1.0 : 0.3)
-                                .offset(y: phase.isIdentity ? 0 : 30)
+                                .offset(y: phase.isIdentity ? 0 : 50)
                         }
                 }
             }
             .scrollTargetLayout()
         }
         .contentMargins(15, for: .scrollContent)
-        .scrollTargetBehavior(.viewAligned)
+        //.scrollTargetBehavior(.viewAligned)
         .preferredColorScheme(.dark)
     }
 }
